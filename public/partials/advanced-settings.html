@@ -1,0 +1,51 @@
+<!-- Advanced settings panel component -->
+<div class="advanced-settings-toggle">
+  <button id="toggleAdvancedSettings">
+    <span class="material-symbols-outlined">settings</span> Advanced Settings
+  </button>
+</div>
+<div id="advancedSettingsPanel" class="advanced-settings-panel">
+  <div class="setting-group">
+    <label for="serversToScanInput" class="setting-label">
+      <span class="material-symbols-outlined">data_usage</span> Max Servers to Scan: 
+      <span id="serversToScanValue">{{maxServers}}</span>
+    </label>
+    <input
+      type="range"
+      id="serversToScanInput"
+      min="100"
+      max="300"
+      step="100"
+      value="{{maxServers}}"
+    />
+    <span class="setting-unit">servers</span>
+  </div>
+  <div class="setting-group">
+    <label for="batchSizeInput" class="setting-label">
+      <span class="material-symbols-outlined">speed</span> Geolocation Batch Size:
+    </label>
+    <input
+      type="number"
+      id="batchSizeInput"
+      min="1"
+      max="20"
+      value="{{batchSize}}"
+    />
+    <span class="setting-unit">servers/batch</span>
+  </div>
+  <div class="setting-group">
+    <label for="delayBetweenGeolocationBatchesInput" class="setting-label">
+      <span class="material-symbols-outlined">hourglass_empty</span>
+      Delay Between Geolocation Batches:
+    </label>
+    <input
+      type="number"
+      id="delayBetweenGeolocationBatchesInput"
+      min="0"
+      max="5000"
+      step="100"
+      value="{{delay}}"
+    />
+    <span class="setting-unit">ms</span>
+  </div>
+</div>

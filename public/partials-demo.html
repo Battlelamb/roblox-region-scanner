@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partials Demo - Roblox Region Scanner</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .demo-panel {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #4CAF50;
+        }
+        .demo-controls {
+            margin-bottom: 15px;
+        }
+        .demo-controls button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .demo-controls button:hover {
+            background: #1976D2;
+        }
+        .component-container {
+            border: 2px dashed #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            min-height: 50px;
+        }
+        .component-container:empty::before {
+            content: "Component will render here...";
+            color: #999;
+            font-style: italic;
+        }
+        pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-panel">
+        <h1>🧩 Partials System Demo</h1>
+        <p>This page demonstrates the partials system implemented for the Roblox Region Scanner.</p>
+        
+        <div class="demo-section">
+            <h2>📁 Available Partials</h2>
+            <p>The following partials are available:</p>
+            <ul>
+                <li><code>header.html</code> - Application header</li>
+                <li><code>game-preview.html</code> - Game preview panel</li>
+                <li><code>search-panel.html</code> - Search input panel</li>
+                <li><code>advanced-settings.html</code> - Advanced settings panel</li>
+                <li><code>game-info.html</code> - Game info sidebar</li>
+                <li><code>sidebar-tabs.html</code> - Sidebar navigation tabs</li>
+                <li><code>filters-panel.html</code> - Filters panel</li>
+                <li><code>server-list-panel.html</code> - Server list panel</li>
+                <li><code>ad-banner.html</code> - Advertisement banner</li>
+                <li><code>loader.html</code> - Loading overlay</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎮 Interactive Demo</h2>
+            <div class="demo-controls">
+                <button onclick="loadHeader()">Load Header</button>
+                <button onclick="loadGamePreview()">Load Game Preview</button>
+                <button onclick="loadSearchPanel()">Load Search Panel</button>
+                <button onclick="loadAdvancedSettings()">Load Advanced Settings</button>
+                <button onclick="loadLoader()">Load Loader</button>
+                <button onclick="clearDemo()">Clear All</button>
+            </div>
+            <div id="demo-container" class="component-container"></div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔧 Template Interpolation Demo</h2>
+            <div class="demo-controls">
+                <button onclick="showInterpolationExample()">Show Interpolation</button>
+                <button onclick="updateWithRandomData()">Update with Random Data</button>
+            </div>
+            <div id="interpolation-container" class="component-container"></div>
+            <pre id="interpolation-code"></pre>
+        </div>
+
+        <div class="demo-section">
+            <h2>⚡ Performance Demo</h2>
+            <div class="demo-controls">
+                <button onclick="testCachePerformance()">Test Cache Performance</button>
+                <button onclick="testBatchLoading()">Test Batch Loading</button>
+            </div>
+            <pre id="performance-results"></pre>
+        </div>
+
+        <div class="demo-section">
+            <h2>📊 System Status</h2>
+            <div id="system-status">
+                <p>Loaded Partials: <span id="loaded-partials">None</span></p>
+                <p>Cache Size: <span id="cache-size">0</span></p>
+                <p>Components Initialized: <span id="components-status">No</span></p>
+            </div>
+            <button onclick="updateStatus()">Refresh Status</button>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔗 Navigation</h2>
+            <p>
+                <a href="/">← Back to Main App</a> | 
+                <a href="/index-partials.html">View Partials Version</a> |
+                <a href="/?demo=partials">Main App with Demo</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="module">
+        import partials from './js/partials.js';
+        import components from './js/components.js';
+
+        // Make modules available globally for demo buttons
+        window.partials = partials;
+        window.components = components;
+
+        // Demo functions
+        window.loadHeader = async () => {
+            await partials.render('header', '#demo-container', { 
+                title: 'Demo Header - Partials System' 
+            });
+            updateStatus();
+        };
+
+        window.loadGamePreview = async () => {
+            await partials.render('game-preview', '#demo-container', {
+                thumbnailUrl: 'https://via.placeholder.com/150x150/FF5722/white?text=DEMO',
+                gameName: 'Demo Adventure Game',
+                playing: '1,234',
+                visits: '987,654'
+            });
+            updateStatus();
+        };
+
+        window.loadSearchPanel = async () => {
+            await partials.render('search-panel', '#demo-container', {
+                placeholder: 'Demo: Enter Place ID...',
+                buttonText: 'Demo Search'
+            });
+            updateStatus();
+        };
+
+        window.loadAdvancedSettings = async () => {
+            await partials.render('advanced-settings', '#demo-container', {
+                maxServers: '200',
+                batchSize: '10',
+                delay: '1000'
+            });
+            updateStatus();
+        };
+
+        window.loadLoader = async () => {
+            await partials.render('loader', '#demo-container', {
+                message: 'Demo: Loading partials...',
+                progress: '75'
+            });
+            updateStatus();
+        };
+
+        window.clearDemo = () => {
+            document.getElementById('demo-container').innerHTML = '';
+        };
+
+        window.showInterpolationExample = async () => {
+            const template = await partials.load('game-preview');
+            const data = {
+                thumbnailUrl: 'https://via.placeholder.com/150x150/9C27B0/white?text=TEMPLATE',
+                gameName: 'Template Demo Game',
+                playing: '{{playing}}',
+                visits: '{{visits}}'
+            };
+            
+            document.getElementById('interpolation-code').textContent = 
+                `Template Data:\n${JSON.stringify(data, null, 2)}\n\nTemplate:\n${template}`;
+            
+            await partials.render('game-preview', '#interpolation-container', data);
+        };
+
+        window.updateWithRandomData = async () => {
+            const randomData = {
+                thumbnailUrl: 'https://via.placeholder.com/150x150/4CAF50/white?text=RANDOM',
+                gameName: `Random Game ${Math.floor(Math.random() * 1000)}`,
+                playing: Math.floor(Math.random() * 10000).toLocaleString(),
+                visits: Math.floor(Math.random() * 1000000).toLocaleString()
+            };
+            
+            await partials.render('game-preview', '#interpolation-container', randomData);
+            document.getElementById('interpolation-code').textContent = 
+                `Random Data Generated:\n${JSON.stringify(randomData, null, 2)}`;
+        };
+
+        window.testCachePerformance = async () => {
+            const results = document.getElementById('performance-results');
+            results.textContent = 'Testing cache performance...\n';
+            
+            // Test with cache
+            const startCached = performance.now();
+            for (let i = 0; i < 100; i++) {
+                await partials.load('header', true);
+            }
+            const endCached = performance.now();
+            
+            // Test without cache
+            const startUncached = performance.now();
+            for (let i = 0; i < 10; i++) {
+                await partials.load('header', false);
+            }
+            const endUncached = performance.now();
+            
+            results.textContent += `✅ Results:\n`;
+            results.textContent += `100 loads with cache: ${(endCached - startCached).toFixed(2)}ms\n`;
+            results.textContent += `10 loads without cache: ${(endUncached - startUncached).toFixed(2)}ms\n`;
+            results.textContent += `Cache speedup: ${((endUncached - startUncached) / 10 / ((endCached - startCached) / 100)).toFixed(1)}x faster`;
+        };
+
+        window.testBatchLoading = async () => {
+            const results = document.getElementById('performance-results');
+            results.textContent = 'Testing batch loading...\n';
+            
+            partials.clearCache();
+            
+            const startBatch = performance.now();
+            await partials.preload(['header', 'game-preview', 'search-panel', 'advanced-settings', 'loader']);
+            const endBatch = performance.now();
+            
+            results.textContent += `✅ Batch loaded 5 partials in ${(endBatch - startBatch).toFixed(2)}ms\n`;
+            results.textContent += `Average per partial: ${((endBatch - startBatch) / 5).toFixed(2)}ms`;
+        };
+
+        window.updateStatus = () => {
+            document.getElementById('loaded-partials').textContent = 
+                partials.getLoadedPartials().join(', ') || 'None';
+            document.getElementById('cache-size').textContent = 
+                partials.getLoadedPartials().length;
+            document.getElementById('components-status').textContent = 
+                components.isInitialized() ? 'Yes' : 'No';
+        };
+
+        // Initialize status on load
+        document.addEventListener('DOMContentLoaded', updateStatus);
+    </script>
+</body>
+</html>

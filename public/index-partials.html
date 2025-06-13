@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roblox Region Scanner</title>
+
+    <!-- Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Material Symbols (Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- Header will be rendered here -->
+      <div id="app-header-container"></div>
+
+      <main class="app-main-content">
+        <!-- Initial Search View -->
+        <div id="initialView" class="view-container initial-view">
+          <!-- Game Preview Panel will be rendered here -->
+          <div id="game-preview-container"></div>
+          
+          <!-- Search Panel will be rendered here -->
+          <div id="search-panel-container"></div>
+
+          <p id="initialStatusMessage" class="status-message">
+            Enter a Place ID to begin.
+          </p>
+
+          <!-- Advanced Settings will be rendered here -->
+          <div id="advanced-settings-container"></div>
+        </div>
+
+        <!-- Globe & Details View -->
+        <div id="mainView" class="view-container main-view">
+          <div class="map-area">
+            <div id="globeViz"></div>
+            <!-- Advertisement Banner will be rendered here -->
+            <div id="ad-banner-container"></div>
+          </div>
+          <aside class="sidebar-area">
+            <!-- Game Info Panel will be rendered here -->
+            <div id="game-info-container"></div>
+
+            <!-- Sidebar Tabs will be rendered here -->
+            <div id="sidebar-tabs-container"></div>
+
+            <!-- Tab Content Panes -->
+            <div class="sidebar-tab-content">
+              <!-- Filters Panel will be rendered here -->
+              <div id="filters-panel-container"></div>
+
+              <!-- Server List Panel will be rendered here -->
+              <div id="server-list-container"></div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- Fullscreen Loader will be rendered here -->
+      <div id="loader-container"></div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- 3D Globe Libraries -->
+    <script src="//unpkg.com/three"></script>
+    <script src="//unpkg.com/globe.gl"></script>
+    <!-- Custom Script - Correct path and type="module" -->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

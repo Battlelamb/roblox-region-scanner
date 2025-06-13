@@ -1,0 +1,20 @@
+<!-- Search panel component -->
+<div class="search-panel">
+  <div class="place-id-input-wrapper">
+    <div class="input-icon">
+      <span class="material-symbols-outlined">tag</span>
+    </div>
+    <input
+      type="text"
+      id="placeIdInput"
+      class="form-input place-id-input"
+      placeholder="{{placeholder}}"
+      pattern="[0-9]*"
+      inputmode="numeric"
+    />
+  </div>
+  <button id="findServersBtn" class="btn btn-primary btn-block">
+    <span class="material-symbols-outlined icon">search</span>
+    {{buttonText}}
+  </button>
+</div>

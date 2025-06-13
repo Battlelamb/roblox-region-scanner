@@ -6,6 +6,9 @@ import * as ui from "./ui.js";
 import * as globe from "./globe.js";
 import * as api from "./api.js";
 
+// Import partials system for demo purposes
+import './partials-demo.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- INITIALIZATION ---
   let isGlobeInitialized = false;
@@ -14,6 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
   state.loadAdvancedSettings();
   ui.runIntroAnimation();
   setupEventListeners();
+
+  // Show partials info if demo mode is enabled
+  if (window.location.search.includes('demo=partials')) {
+    showPartialsInfo();
+  }
 
   // --- CORE LOGIC ---
   function sortServers(servers) {
@@ -290,6 +298,72 @@ document.addEventListener("DOMContentLoaded", () => {
       state.saveAdvancedSettings();
     });
   }
+
+  // --- GLOBAL FUNCTIONS ---
+  window.toggleAdBanner = () => {
+    const adContainer = document.querySelector(".ad-container");
+    if (adContainer) {
+      adContainer.classList.toggle("minimized");
+    }
+  };
+
+  function showPartialsInfo() {
+    const infoBox = document.createElement('div');
+    infoBox.id = 'partials-info';
+    infoBox.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 300px;
+      font-family: 'Inter', sans-serif;
+    `;
+    
+    infoBox.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0; font-size: 18px;">🧩 Partials Demo Mode</h3>
+        <button onclick="this.parentElement.parentElement.remove()" style="background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 50%; width: 25px; height: 25px; cursor: pointer; font-size: 16px;">×</button>
+      </div>
+      <p style="margin: 10px 0; font-size: 14px; line-height: 1.4;">
+        You're viewing the main app with partials demo enabled. Try these:
+      </p>
+      <div style="margin: 15px 0;">
+        <button onclick="window.runPartialsDemo()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin: 5px 5px 5px 0; font-size: 12px;">
+          🎯 Run Demo
+        </button>
+        <button onclick="window.open('/partials-demo.html', '_blank')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin: 5px; font-size: 12px;">
+          📖 Demo Page
+        </button>
+        <button onclick="window.open('/index-partials.html', '_blank')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; margin: 5px; font-size: 12px;">
+          🔧 Partials App
+        </button>
+      </div>
+      <p style="margin: 10px 0 0 0; font-size: 12px; opacity: 0.8;">
+        Open console to see partials system logs and try commands like <code style="background: rgba(255,255,255,0.1); padding: 2px 4px; border-radius: 3px;">partials.getLoadedPartials()</code>
+      </p>
+    `;
+    
+    document.body.appendChild(infoBox);
+    
+    // Auto-hide after 15 seconds
+    setTimeout(() => {
+      if (infoBox.parentNode) {
+        infoBox.style.opacity = '0.7';
+        setTimeout(() => {
+          if (infoBox.parentNode) {
+            infoBox.remove();
+          }
+        }, 2000);
+      }
+    }, 15000);
+  }
+
+  console.log("🚀 App initialized" + (window.location.search.includes('demo=partials') ? ' (with partials demo)' : ''));
 });
 
 // Ad Banner Toggle Function

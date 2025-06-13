@@ -1,0 +1,23 @@
+<!-- Server list panel component -->
+<div id="serverListPanel" class="tab-pane" data-tab-content="servers">
+  <h2 id="serverListTitle">Server Details</h2>
+  <div class="filter-group">
+    <label for="sortBySelect" class="filter-label">
+      <span class="material-symbols-outlined">sort</span> Sort By
+    </label>
+    <div class="sort-controls-container">
+      <select id="sortBySelect" class="filter-control">
+        <option value="ping">Ping</option>
+        <option value="playing">Players</option>
+      </select>
+      <button id="sortOrderBtn" class="sort-order-button" title="Sort Ascending">
+        <span id="sortOrderIcon" class="material-symbols-outlined">arrow_upward</span>
+      </button>
+    </div>
+  </div>
+  <div id="serverListContent" class="server-list-items">
+    <p class="list-placeholder">
+      Click a server on the globe or adjust filters.
+    </p>
+  </div>
+</div>
